@@ -1,0 +1,6 @@
+[submodule "libs/libs/lv_port_pc_vscode"]
+	path = libs/libs/lv_port_pc_vscode
+	url = git@github.com:lvgl/lv_port_pc_vscode.git
+[submodule "libs/lv_port_pc_vscode"]
+	path = libs/lv_port_pc_vscode
+	url = https://github.com/lvgl/lv_port_pc_vscode.git
