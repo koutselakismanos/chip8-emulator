@@ -11,7 +11,7 @@ int main(void) {
     chip8_t chip;
     chip8_init(&chip);
 
-    const char* rom_filename = "../roms/4-flags.ch8";
+    const char* rom_filename = "../test-roms/3-corax+.ch8";
     FILE* fptr = fopen(rom_filename, "rb");
 
     if (fptr == NULL) {
@@ -94,7 +94,7 @@ int main(void) {
         }
 
         // Decrement timers (60Hz)
-        chip8_tick_timers(&chip);
+        // chip8_tick_timers(&chip);
 
         for (size_t y = 0; y < CHIP8_SCREEN_HEIGHT; y++) {
             for (size_t x = 0; x < CHIP8_SCREEN_WIDTH; x++) {
