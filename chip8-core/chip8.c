@@ -1,6 +1,7 @@
 #include "chip8.h"
 
 #include <assert.h>
+#include <stdlib.h>
 #include <string.h>
 
 static const uint8_t FONTSET[80] = {
@@ -170,11 +171,10 @@ static void op_8_math(chip8_t* chip, const uint16_t opcode) {
         chip->registers.vx[x_register] = vy - vx;
         break;
     case 0xE:
-        chip->registers.vx[0xF] = 0;
-        if (vx >> 7 & 0x1) {
-            chip->registers.vx[0xF] = 1;
-        }
+        uint8_t msb = (vx >> 7) & 0x1;
         chip->registers.vx[x_register] = vx << 1;
+
+        chip->registers.vx[0xF] = msb;
     default: ;
         // we do nothing :D
     }
@@ -197,7 +197,11 @@ static void op_b_jump_v0(chip8_t* chip, uint16_t opcode) {
 }
 
 static void op_c_rnd(chip8_t* chip, uint16_t opcode) {
-    assert(false);
+    const uint8_t x_register = opcode >> 8 & 0x0F;
+    const uint8_t kk = opcode & 0xFF;
+    const uint8_t random_number = rand();
+
+    chip->registers.vx[x_register] = random_number & kk;
 }
 
 static void op_d_drw(chip8_t* chip, const uint16_t opcode) {
@@ -310,6 +314,8 @@ static void op_f_misc(chip8_t* chip, const uint16_t opcode) {
     default:
         // do nothing :D
 
+
+
     }
 }
 
@@ -346,5 +352,11 @@ void chip8_cycle(chip8_t* chip) {
 }
 
 void chip8_tick_timers(chip8_t* chip) {
-    assert(false);
+    if (chip->registers.delay_timer > 0) {
+        chip->registers.delay_timer--;
+    }
+
+    if (chip->registers.sound_timer > 0) {
+        chip->registers.sound_timer--;
+    }
 }

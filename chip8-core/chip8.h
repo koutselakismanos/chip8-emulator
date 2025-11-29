@@ -5,6 +5,7 @@
 
 #define CHIP8_SCREEN_WIDTH  64
 #define CHIP8_SCREEN_HEIGHT 32
+#define CHIP8_TARGET_FRAME_TIME 16
 
 #define CHIP8_MEMORY_ROM_OFFSET 0x200
 #define CHIP8_MEMORY_FONTSET_OFFSET 0x50
@@ -32,7 +33,6 @@ typedef struct {
     uint16_t stack[16]; // call stack
     chip8_registers_t registers;
 
-    // uint8_t keypad[16]; // 0x0 - 0xF
     chip8_key keypad[16];
     uint8_t display[CHIP8_SCREEN_WIDTH * CHIP8_SCREEN_HEIGHT];
 } chip8_t;
